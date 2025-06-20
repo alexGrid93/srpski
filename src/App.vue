@@ -121,6 +121,7 @@ function playSound(src: string) {
         <template v-else-if="column.dataIndex === 'pronunciation'">
           <div class="pronunciation-cell">
             <AudioRecorder
+              v-if="false"
               :key="record.id + (record.pronunciation || '')"
               @recorded="(data) => (record.pronunciation = data)"
             />
