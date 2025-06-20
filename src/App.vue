@@ -88,6 +88,15 @@ function playSound(src: string) {
   <div class="container">
     <h1 class="title">Базовый сербский 🇷🇸</h1>
 
+    <p>
+      Ударение никогда не ставится на последний слог. Практически всегда на
+      первый.
+    </p>
+    <p>
+      Очень много слов произносятся как на русском, но с ударением на первый
+      слог
+    </p>
+
     <div class="storage-info">Объём данных: {{ localStorageUsage }}</div>
 
     <a-table
@@ -121,7 +130,6 @@ function playSound(src: string) {
         <template v-else-if="column.dataIndex === 'pronunciation'">
           <div class="pronunciation-cell">
             <AudioRecorder
-              v-if="false"
               :key="record.id + (record.pronunciation || '')"
               @recorded="(data) => (record.pronunciation = data)"
             />
