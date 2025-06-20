@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from "vue";
-import { message } from "ant-design-vue";
+import defaultWords from "./assets/defaultWords.json";
 import AudioRecorder from "./components/AudioRecorder.vue";
 
 interface Entry {
@@ -41,6 +41,9 @@ onMounted(() => {
     } catch (e) {
       console.error("Ошибка парсинга сохранённых данных", e);
     }
+  } else {
+    entries.value = defaultWords as Entry[];
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultWords));
   }
 });
 
@@ -75,13 +78,6 @@ function removeRow(id: string) {
   entries.value = entries.value.filter((entry) => entry.id !== id);
 }
 
-function clearAll() {
-  if (confirm("Удалить все строки?")) {
-    entries.value = [];
-    message.success("Очищено!");
-  }
-}
-
 function playSound(src: string) {
   const audio = new Audio(src);
   audio.play();
@@ -90,7 +86,7 @@ function playSound(src: string) {
 
 <template>
   <div class="container">
-    <h1 class="title">Базовый сербский</h1>
+    <h1 class="title">Базовый сербский 🇷🇸</h1>
 
     <div class="storage-info">Объём данных: {{ localStorageUsage }}</div>
 
@@ -172,7 +168,6 @@ function playSound(src: string) {
     <div class="actions">
       <a-button type="primary" @click="addRow">Добавить строку</a-button>
       <a-button type="dashed" @click="addRowToStart">➕ В начало</a-button>
-      <a-button danger @click="clearAll">Очистить всё</a-button>
     </div>
   </div>
 </template>
